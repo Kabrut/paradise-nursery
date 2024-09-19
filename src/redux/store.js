@@ -1,7 +1,10 @@
-import { createStore, applyMiddleware } from 'redux';
-import { thunk } from 'redux-thunk'; // Fixing the named import
-import rootReducer from './reducers';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+import cartReducer from './CartSlice';
+import {configureStore} from "@reduxjs/toolkit";
 
+const store = configureStore({
+    reducer: {
+        cart: cartReducer,
+    },
+});
 export default store;

@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import PlantList from './components/PlantList';
 import ShoppingCart from './components/ShoppingCart';
 import TopBar from './components/TopBar';
+import { useSelector } from 'react-redux';
+import { selectCartItemsCount } from './redux/CartSlice';
 import './App.css';
 
 function App() {
+    const cartItemsCount = useSelector(selectCartItemsCount);
     const [showPlantList, setShowPlantList] = useState(false);
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
@@ -15,12 +18,12 @@ function App() {
 
     const handleCartClick = () => {
         setShowCart(!showCart);
-        setShowPlantList(false); // Hide PlantList when cart is opened
+        setShowPlantList(false);
     };
 
     const handleTitleClick = () => {
-        setShowCart(false); // Hide ShoppingCart when title is clicked
-        setShowPlantList(true); // Show PlantList
+        setShowCart(false);
+        setShowPlantList(true);
     };
 
     const addToCart = (plant) => {
@@ -38,15 +41,15 @@ function App() {
         });
     };
 
-    const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    // const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
         <div className="App">
-            {showPlantList &&  <TopBar
+            {(showPlantList || showCart)  && ( <TopBar
                 cartItemsCount={cartItemsCount}
                 onCartClick={handleCartClick}
                 onTitleClick={handleTitleClick} // Pass the title click handler
-            /> }
+            /> )}
             {!showCart && !showPlantList && (
                 <div className="background-first">
                     <div className="content">
@@ -79,7 +82,7 @@ function App() {
                 </div>
             )}
             {showPlantList && <PlantList addToCart={addToCart} />}
-            {showCart && <ShoppingCart cartItems={cartItems} />}
+            {showCart && <ShoppingCart cartItems={cartItems} setCartItems={setCartItems} />}
         </div>
     );
 }
