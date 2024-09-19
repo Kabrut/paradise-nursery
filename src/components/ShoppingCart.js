@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addItem, removeItem, updateQuantity} from '../redux/CartSlice';
 
-const ShoppingCart = () => {
+const ShoppingCart = ({onHomeClick}) => {
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
 
@@ -46,6 +46,8 @@ const ShoppingCart = () => {
             )}
             <h2>Total: ${calculateTotal().toFixed(2)}</h2>
             <button className="button" onClick={()=>handleCheckout()}> Checkout</button>
+        <br/>
+            <button className="button" onClick={onHomeClick}> Continue Shopping</button>
         </div>
     );
 };

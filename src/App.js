@@ -21,7 +21,7 @@ function App() {
         setShowPlantList(false);
     };
 
-    const handleTitleClick = () => {
+    const handleHomeClick = () => {
         setShowCart(false);
         setShowPlantList(true);
     };
@@ -48,7 +48,7 @@ function App() {
             {(showPlantList || showCart)  && ( <TopBar
                 cartItemsCount={cartItemsCount}
                 onCartClick={handleCartClick}
-                onTitleClick={handleTitleClick} // Pass the title click handler
+                onHomeClick={handleHomeClick} // Pass the title click handler
             /> )}
             {!showCart && !showPlantList && (
                 <div className="background-first">
@@ -82,7 +82,7 @@ function App() {
                 </div>
             )}
             {showPlantList && <PlantList addToCart={addToCart} />}
-            {showCart && <ShoppingCart cartItems={cartItems} setCartItems={setCartItems} />}
+            {showCart && <ShoppingCart cartItems={cartItems} setCartItems={setCartItems} onHomeClick={handleHomeClick} />}
         </div>
     );
 }
