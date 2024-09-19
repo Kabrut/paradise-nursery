@@ -17,6 +17,9 @@ const ShoppingCart = () => {
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
+    const handleCheckout=()=>{
+        window.alert('Checkout')
+    }
 
     return (
         <div className="cart">
@@ -42,6 +45,7 @@ const ShoppingCart = () => {
                 </ul>
             )}
             <h2>Total: ${calculateTotal().toFixed(2)}</h2>
+            <button className="button" onClick={()=>handleCheckout()}> Checkout</button>
         </div>
     );
 };
